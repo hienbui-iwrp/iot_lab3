@@ -142,7 +142,7 @@ def getPort():
 
 
 bbc_port = getPort()
-bbc_port = "COM4"
+# bbc_port = "COM4"
 if len(bbc_port) > 0:
     ser = serial.Serial(port=bbc_port, baudrate=115200)
 
@@ -210,8 +210,8 @@ def recv_message(client, userdata, message):
                 cmd = "fan-off"
     except:
         pass
-    # if len(bbc_port) > 0:
-    #     ser.write((str(cmd) + "#").encode())
+    if len(bbc_port) > 0:
+        ser.write((str(cmd) + "#").encode())
 
 
 def connected(client, usedata, flags, rc):
