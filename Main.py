@@ -122,9 +122,26 @@ BROKER_ADDRESS = "demo.thingsboard.io"
 PORT = 1883
 mess = ""
 
+
 # TODO: Add your token and your comport
 # Please check the comport in the device manager
-THINGS_BOARD_ACCESS_TOKEN = "ep8Xsr7iS12D3E4EQwPj"
+THINGS_BOARD_ACCESS_TOKEN = "MyXqGnQrCTxP4UqKM3AS"
+
+
+def getPort():
+    ports = serial.tools.list_ports.comports()
+    N = len(ports)
+    commPort = ""
+    for i in range(0, N):
+        port = ports[i]
+        strPort = str(port)
+        if "USB Serial Device" in strPort:
+            splitPort = strPort.split(" ")
+            commPort = (splitPort[0])
+    return commPort
+
+
+bbc_port = getPort()
 bbc_port = "COM4"
 if len(bbc_port) > 0:
     ser = serial.Serial(port=bbc_port, baudrate=115200)
@@ -193,8 +210,8 @@ def recv_message(client, userdata, message):
                 cmd = "fan-off"
     except:
         pass
-    if len(bbc_port) > 0:
-        ser.write((str(cmd) + "#").encode())
+    # if len(bbc_port) > 0:
+    #     ser.write((str(cmd) + "#").encode())
 
 
 def connected(client, usedata, flags, rc):
